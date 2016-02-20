@@ -23,14 +23,14 @@ shinyUI(
         tabItem(tabName = "explore",
                 fluidPage(center=T,
                   h1("Find the most suitable home for you!"),
-                  radioButtons("variable", label = h3("Choose the variable you want to visualize"), choices = list("Price" = "price", "Rating" = "rating", "Schools" = "schools"), selected = "price"),
+                  radioButtons("general.plot.var", label = h3("Choose the variable you want to visualize"), choices = list("Price" = "price", "Rating" = "rating", "Schools" = "schools"), selected = "price"),
                   fluidRow(
-                    column(4,sliderInput("d.price", "Price:", 0, 100, c(0,100))),
-                    column(4,sliderInput("d.rating", "Rating:", 0, 100, c(0,100))),
-                    column(4,sliderInput("d.schools", "Number of schools:", 0, 100, c(0,100)))
+                    column(4,sliderInput("range.price", "Price:", 0, 100, c(0,100))),
+                    column(4,sliderInput("range.rating", "Rating:", 0, 100, c(0,100))),
+                    column(4,sliderInput("range.schools", "Number of schools:", 0, 100, c(0,100)))
                   ),
                   
-                  plotOutput("plot1", height = 1000)
+                  plotOutput("general.plot", height = 1000)
                   
 #                   box(
 #                     title = "Price",
@@ -49,7 +49,7 @@ shinyUI(
                     # conditionalPanel(condition="input.cmetrics.length==0", sliderInput("distance", "Distance Metric:", 0, 100, c(0,100))),
                     # sliderInput("ap", "AP:", 0, 100, c(0,100))
                   ),
-                  mainPanel(h2("Education"))
+                  mainPanel(plotOutput("education.plot", height = 1000))
                 )  
         ),
         tabItem(tabName = "safety",
