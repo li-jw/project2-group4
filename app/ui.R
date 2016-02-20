@@ -21,32 +21,23 @@ shinyUI(
           h2("Describe the app")
         ),
         tabItem(tabName = "explore",
-                fluidPage(center=T,
-                  h1("Find the most suitable home for you!"),
-                  radioButtons("general.plot.var", label = h3("Choose the variable you want to visualize"), choices = list("Price" = "price", "Rating" = "rating", "Schools" = "schools"), selected = "price"),
-                  fluidRow(
-                    column(4,sliderInput("range.price", "Price:", 0, 100, c(0,100))),
-                    column(4,sliderInput("range.rating", "Rating:", 0, 100, c(0,100))),
-                    column(4,sliderInput("range.schools", "Number of schools:", 0, 100, c(0,100)))
+                fluidPage(
+                  titlePanel("General"),
+                  sidebarPanel(
+                    uiOutput("general.m")
                   ),
-                  
-                  plotOutput("general.plot", height = 1000)
-                  
-#                   box(
-#                     title = "Price",
-#                     sliderInput("price", "Price range:", 0, 100, c(0,100))
-#                   )
+                  mainPanel(plotOutput("general.plot", height = 1000))
                 )
         ),
         tabItem(tabName = "education",
                 fluidPage(
                   titlePanel("Education"),
                   sidebarPanel(
-                    # checkboxGroupInput("cmetrics", label = h3("Metrics you care of:"), choices = list("Distance metric" = 1, "AP" = 2),selected = c(1,2)),
-                    selectInput("cmetrics", label = h3("Metrics you care of:"),multiple=T, choices = list("Distance", "AP"),selected = c("Distance", "AP")),
+                    # checkboxGroupInput("include.metrics.education", label = h3("Metrics you care of:"), choices = list("Distance metric" = 1, "AP" = 2),selected = c(1,2)),
+                    selectInput("include.metrics.education", label = h3("Metrics you care of:"),multiple=T, choices = list("education1", "education2"),selected = c("education1", "education2")),
                     h2(textOutput("value")),
                     uiOutput("education.m")
-                    # conditionalPanel(condition="input.cmetrics.length==0", sliderInput("distance", "Distance Metric:", 0, 100, c(0,100))),
+                    # conditionalPanel(condition="input.include.metrics.education.length==0", sliderInput("distance", "Distance Metric:", 0, 100, c(0,100))),
                     # sliderInput("ap", "AP:", 0, 100, c(0,100))
                   ),
                   mainPanel(plotOutput("education.plot", height = 1000))
