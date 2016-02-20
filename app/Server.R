@@ -47,7 +47,7 @@ shinyServer(
     output$value <- renderText(length(input$cmetrics))
     output$plot1 <- renderPlot({
       # s.variable="price"
-      s.variable=f.variable(input$variable)
+      s.variable=input$variable
 #       data.zip.red[data.zip$price<10 | data.zip$price>80,s.variable] <- NA
 #       data.zip.red[data.zip$rating<10 | data.zip$rating>80,s.variable] <- NA
 #       data.zip.red[data.zip$schools<10 | data.zip$schools>80,s.variable] <- NA

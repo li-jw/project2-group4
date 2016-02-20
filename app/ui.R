@@ -23,7 +23,7 @@ shinyUI(
         tabItem(tabName = "explore",
                 fluidPage(center=T,
                   h1("Find the most suitable home for you!"),
-                  radioButtons("variable", label = h3("Choose the variable you want to visualize"), choices = list("Price" = 1, "Rating" = 2, "Schools" = 3), selected = 1),
+                  radioButtons("variable", label = h3("Choose the variable you want to visualize"), choices = list("Price" = "price", "Rating" = "rating", "Schools" = "schools"), selected = "price"),
                   fluidRow(
                     column(4,sliderInput("d.price", "Price:", 0, 100, c(0,100))),
                     column(4,sliderInput("d.rating", "Rating:", 0, 100, c(0,100))),
