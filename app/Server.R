@@ -21,14 +21,16 @@ shinyServer(
     zip.data.red <- zip.data
     output$pruebas <- renderText(input$range.education1)
     output$pruebas2 <- renderText(length(input$include.metrics.education))
+    
+    
     # REACTIVE SIDEBARS
     # _________________________________________________________________________________________________________________
     # _________________________________________________________________________________________________________________
     
     output$general.m <- renderUI(general.f())
     general.f <- reactive({
-      general.choice.list <- as.list(input$include.metrics.education)
-      names(general.choice.list) <- input$include.metrics.education
+      general.choice.list <- as.list(c(input$include.metrics.education,input$include.metrics.safety))
+      names(general.choice.list) <- c(input$include.metrics.education,input$include.metrics.safety)
       ifelse(is.null(input$include.metrics.education),return("So you don't care about anything? Hmmmmm, we can choose a random ZIP code for you!"),
              return(list(
                     radioButtons("general.plot.var", label = h3("Choose the variable you want to visualize"), choices = general.choice.list, selected = general.choice.list[1]), 
@@ -37,7 +39,6 @@ shinyServer(
               )
       )
     })
-    
     output$education.m <- renderUI(education.f())
     education.f <- reactive({
       education.choice.list <- as.list(input$include.metrics.education)
@@ -45,6 +46,18 @@ shinyServer(
       ifelse(is.null(input$include.metrics.education),return("So you don't care about Education? Okaaaay o_O, well then go to the next tab"),
              return(list(
                radioButtons("education.plot.var", label = h3("Choose the variable you want to visualize"), choices = education.choice.list, selected = education.choice.list[1]), 
+               textOutput("pruebas2")
+             )
+             )
+      )
+    })
+    output$safety.m <- renderUI(safety.f())
+    safety.f <- reactive({
+      safety.choice.list <- as.list(input$include.metrics.safety)
+      names(safety.choice.list) <- input$include.metrics.safety
+      ifelse(is.null(input$include.metrics.safety),return("So you don't care about safety? Okaaaay o_O, well then go to the next tab"),
+             return(list(
+               radioButtons("safety.plot.var", label = h3("Choose the variable you want to visualize"), choices = safety.choice.list, selected = safety.choice.list[1]), 
                textOutput("pruebas2")
              )
              )
@@ -79,7 +92,6 @@ shinyServer(
       #  zip_choropleth(data.plot, title = "Manhattan housing", legend = education.plot.var.selected, county_zoom = c(36061,36005,36047,36081), reference_map = F)
     })
     output$education.plot <- renderPlot({
-      if (!is.null(input$include.metrics.education)){
           #       education.plot.var.selected="education1"
           education.plot.var.selected=input$education.plot.var
     #       zip.data.red[zip.data$education1 < 20 | zip.data$education1 > 80,education.plot.var.selected] <- NA
@@ -91,7 +103,19 @@ shinyServer(
           data.plot <- data.frame(region=zip.data.red$ny.region, value=zip.data.red[,education.plot.var.selected],stringsAsFactors = F)
           zip_choropleth(data.plot, title = "Manhattan Education", legend = education.plot.var.selected, county_zoom = c(36061), reference_map = F)
           #  zip_choropleth(data.plot, title = "Manhattan housing", legend = education.plot.var.selected, county_zoom = c(36061,36005,36047,36081), reference_map = F)
-      }
+    })
+    output$safety.plot <- renderPlot({
+        #       safety.plot.var.selected="safety1"
+        safety.plot.var.selected=input$safety.plot.var
+        #       zip.data.red[zip.data$safety1 < 20 | zip.data$safety1 > 80,safety.plot.var.selected] <- NA
+        #       zip.data.red[zip.data$safety2 < 20 | zip.data$safety2 > 80,safety.plot.var.selected] <- NA
+        
+        #       data.plot <- data.frame(region=zip.data.red$ny.region, value=zip.data.red[,safety.plot.var.selected],stringsAsFactors = F)
+        zip.data.red[zip.data$safety1 < input$range.safety1[1] | zip.data$safety1 > input$range.safety1[2],safety.plot.var.selected] <- NA
+        zip.data.red[zip.data$safety2 < input$range.safety2[1] | zip.data$safety2 > input$range.safety2[2],safety.plot.var.selected] <- NA
+        data.plot <- data.frame(region=zip.data.red$ny.region, value=zip.data.red[,safety.plot.var.selected],stringsAsFactors = F)
+        zip_choropleth(data.plot, title = "Manhattan safety", legend = safety.plot.var.selected, county_zoom = c(36061), reference_map = F)
+        #  zip_choropleth(data.plot, title = "Manhattan housing", legend = safety.plot.var.selected, county_zoom = c(36061,36005,36047,36081), reference_map = F)
     })
   }
 )

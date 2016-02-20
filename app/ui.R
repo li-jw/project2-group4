@@ -35,7 +35,7 @@ shinyUI(
                   sidebarPanel(
                     # checkboxGroupInput("include.metrics.education", label = h3("Metrics you care of:"), choices = list("Distance metric" = 1, "AP" = 2),selected = c(1,2)),
                     selectInput("include.metrics.education", label = h3("Metrics you care of:"),multiple=T, choices = list("education1", "education2"),selected = c("education1", "education2")),
-                    h2(textOutput("value")),
+                    # h2(textOutput("value")),
                     uiOutput("education.m")
                     # conditionalPanel(condition="input.include.metrics.education.length==0", sliderInput("distance", "Distance Metric:", 0, 100, c(0,100))),
                     # sliderInput("ap", "AP:", 0, 100, c(0,100))
@@ -44,7 +44,19 @@ shinyUI(
                 )  
         ),
         tabItem(tabName = "safety",
-                h2("Safety")
+                fluidPage(
+                  titlePanel("Safety"),
+                  sidebarPanel(
+                    # checkboxGroupInput("include.metrics.safety", label = h3("Metrics you care of:"), choices = list("Distance metric" = 1, "AP" = 2),selected = c(1,2)),
+                    selectInput("include.metrics.safety", label = h3("Metrics you care of:"),multiple=T, choices = list("safety1", "safety2"),selected = c("safety1", "safety2")),
+                    # h2(textOutput("value")),
+                    uiOutput("safety.m")
+                    # conditionalPanel(condition="input.include.metrics.safety.length==0", sliderInput("distance", "Distance Metric:", 0, 100, c(0,100))),
+                    # sliderInput("ap", "AP:", 0, 100, c(0,100))
+                  ),
+                  mainPanel(
+                    plotOutput("safety.plot", height = 1000))
+                )  
         ),
         tabItem(tabName = "entertainment",
                 h2("Entertainment")
