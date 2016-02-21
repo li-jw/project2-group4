@@ -6,7 +6,7 @@ shinyUI(
     dashboardSidebar(
       sidebarMenu(
         menuItem("Introduction", tabName = "introduction", icon = icon("hand-peace-o")),
-        menuItem("Explore NYC", tabName = "explore", icon = icon("map")),
+        menuItem("Recommendation", tabName = "general", icon = icon("map")),
         menuItem("Education",tabName="education",icon=icon("book")),
         menuItem("Safety",tabName="safety",icon=icon("lock")),
         menuItem("Entertainment",tabName="entertainment",icon=icon("smile-o")),
@@ -20,42 +20,49 @@ shinyUI(
           tabName="introduction",
           h2("Describe the app")
         ),
-        tabItem(tabName = "explore",
+        tabItem(tabName = "general",
                 fluidPage(
                   titlePanel("General"),
                   sidebarPanel(
-                    uiOutput("general.m")
+                    radioButtons("general.plot.var", label = h3("Choose the variable you want to visualize"), choices = list("education1"="education1","education2"="education2","safety1"="safety1","safety2"="safety2"), selected = "education1") 
                   ),
-                  mainPanel(plotOutput("general.plot", height = 1000))
+                  mainPanel(
+                    h2("The following zipcodes are the most suitable for you:"),
+                    tableOutput("recommedation.table"),
+                    plotOutput("general.plot", height = 1000)
+                  )
                 )
         ),
         tabItem(tabName = "education",
                 fluidPage(
                   titlePanel("Education"),
                   sidebarPanel(
-                    # checkboxGroupInput("include.metrics.education", label = h3("Metrics you care of:"), choices = list("Distance metric" = 1, "AP" = 2),selected = c(1,2)),
-                    selectInput("include.metrics.education", label = h3("Metrics you care of:"),multiple=T, choices = list("education1", "education2"),selected = c("education1", "education2")),
-                    # h2(textOutput("value")),
-                    uiOutput("education.m")
-                    # conditionalPanel(condition="input.include.metrics.education.length==0", sliderInput("distance", "Distance Metric:", 0, 100, c(0,100))),
-                    # sliderInput("ap", "AP:", 0, 100, c(0,100))
+                    radioButtons("education.plot.var", label = h3("Choose the variable you want to visualize"), choices = list("education1"="education1","education2"="education2"), selected = "education1"), 
+                    h2("Range"),
+                    sliderInput("range.education1", "Education1:", 0, 100, c(0,100)),
+                    sliderInput("range.education2", "Education2:", 0, 100, c(0,100)),
+                    h2("Weights"),
+                    h5("this weights are used for recommendation tab"),
+                    sliderInput("weight.education1", "Education1:", 0, 5, 3),
+                    sliderInput("weight.education2", "Education2:", 0, 5, 3)
                   ),
                   mainPanel(plotOutput("education.plot", height = 1000))
                 )  
         ),
         tabItem(tabName = "safety",
                 fluidPage(
-                  titlePanel("Safety"),
+                  titlePanel("safety"),
                   sidebarPanel(
-                    # checkboxGroupInput("include.metrics.safety", label = h3("Metrics you care of:"), choices = list("Distance metric" = 1, "AP" = 2),selected = c(1,2)),
-                    selectInput("include.metrics.safety", label = h3("Metrics you care of:"),multiple=T, choices = list("safety1", "safety2"),selected = c("safety1", "safety2")),
-                    # h2(textOutput("value")),
-                    uiOutput("safety.m")
-                    # conditionalPanel(condition="input.include.metrics.safety.length==0", sliderInput("distance", "Distance Metric:", 0, 100, c(0,100))),
-                    # sliderInput("ap", "AP:", 0, 100, c(0,100))
+                    radioButtons("safety.plot.var", label = h3("Choose the variable you want to visualize"), choices = list("safety1"="safety1","safety2"="safety2"), selected = "safety1"), 
+                    h2("Range"),
+                    sliderInput("range.safety1", "safety1:", 0, 100, c(0,100)),
+                    sliderInput("range.safety2", "safety2:", 0, 100, c(0,100)),
+                    h2("Weights"),
+                    h5("this weights are used for recommendation tab"),
+                    sliderInput("weight.safety1", "safety1:", 0, 5, 3),
+                    sliderInput("weight.safety2", "safety2:", 0, 5, 3)
                   ),
-                  mainPanel(
-                    plotOutput("safety.plot", height = 1000))
+                  mainPanel(plotOutput("safety.plot", height = 1000))
                 )  
         ),
         tabItem(tabName = "entertainment",
