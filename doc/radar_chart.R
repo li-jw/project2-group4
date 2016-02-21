@@ -23,5 +23,4 @@ dat <- data.frame(
   v5 = v5[top3])
 dat <- rbind(maxmin,dat)
 
-radarchart(dat, axistype=4, pcol=topo.colors(3), plty=1, pdensity=c(5, 10, 30), 
-           pangle=c(10, 45, 120), pfcol=topo.colors(3))
+radarchart(dat, axistype=0, pcol=c(2,3,4), plty=1, plwd=4)
