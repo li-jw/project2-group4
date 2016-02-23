@@ -18,7 +18,7 @@ shinyServer(
       data.zip.red[data.zip$rating<input$d.rating[1] | data.zip$rating>input$d.rating[2],s.variable] <- NA
       data.zip.red[data.zip$schools<input$d.schools[1] | data.zip$schools>input$d.schools[2],s.variable] <- NA
       data.plot <- data.frame(region=data.zip.red$ny.region, value=data.zip.red[,s.variable],stringsAsFactors = F)
-      zip_choropleth(data.plot, title = "Manhattan housing", legend = s.variable, county_zoom = 36061, reference_map = F)
+      zip_choropleth(data.plot, title = "Manhattan housing", legend = s.variable, county_zoom = c(36061,36005,36047,36081), reference_map = F)
     })
   }
 )
