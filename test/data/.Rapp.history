@@ -1,0 +1,2 @@
+load("/Users/jinziyue/Documents/project2-group4/test/data/felony.RDS")
+dim(felony)
