@@ -18,4 +18,5 @@ proj/
 └── output/
 ```
 <h6>ShinyApp: [Find your home!](https://find-your-home.shinyapps.io/myapp/)
+
 Description: It aims to give guidance for the person who want to buy a house at Manhattan. Manhattan is divided into different parts by zipcode and these regions are ranked based on price, education, safety, entertainment and demographics. Users can change the weights of variables to get the top 10 recommended regions.
