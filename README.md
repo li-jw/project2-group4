@@ -17,3 +17,4 @@ proj/
 ├── app/
 └── output/
 ```
+<h6>ShinyApp: [Find your home!](https://find-your-home.shinyapps.io/myapp/)
