@@ -17,9 +17,9 @@ dataset <- data.frame(zipcode, var1, var2, var3, var4, var5, var6)
 radar_chart <- function(dataset){
   
   name <- names(dataset)
-  n <- length(name) - 1
+  n <- length(name)
   zip <- subset(dataset, select = name[1])
-  VarToPlot <- name[order(dataset[1,2:(n+1)], decreasing = T)[1:5]+1]
+  VarToPlot <- name[order(dataset[1,2:n], decreasing = T)[1:5]+1]
   variables <- subset(dataset, select = VarToPlot)
   
   maxmin <- data.frame(
