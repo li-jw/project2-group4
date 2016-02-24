@@ -12,7 +12,7 @@ setwd("/Users/JPC/Documents/Columbia/2nd Semester/1. Applied Data Science/2. Hom
 
 runApp("project2-group4/app")
 
-
+runApp("project2-group4/test")
 
 runApp("healthrank")
 
