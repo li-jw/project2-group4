@@ -1,4 +1,4 @@
-library(shiny); library(ggmap)
+library(shiny); library(ggmap); library(dplyr);library(data.table)
 load("data/felony.RDS") 
 mapgilbert <- get_map(location = c(lon = mean(felony$latitude),lat = mean(felony$longitude)),zoom = 12,
                       maptype = "roadmap", scale = 2)
