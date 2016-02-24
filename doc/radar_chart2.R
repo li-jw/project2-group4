@@ -16,6 +16,7 @@ dataset <- data.frame(zipcode, var1, var2, var3, var4, var5, var6)
 #The function for radar chart
 radar_chart <- function(dataset){
   
+  dataset[is.na(dataset)] <- 0
   name <- names(dataset)
   n <- length(name)
   zip <- subset(dataset, select = name[1])
