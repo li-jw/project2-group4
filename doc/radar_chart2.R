@@ -1,5 +1,19 @@
 library("fmsb")
 
+
+#Random numbers for test
+var1 <- runif(50, 0, 1)
+var2 <- runif(50, 0, 1)
+var3 <- runif(50, 0, 1)
+var4 <- runif(50, 0, 1)
+var5 <- runif(50, 0, 1)
+var6 <- runif(50, 0, 1)
+
+zipcode <- seq(10001, 10050)
+dataset <- data.frame(zipcode, var1, var2, var3, var4, var5, var6)
+
+
+#The function for radar chart
 radar_chart <- function(dataset){
   
   name <- names(dataset)
@@ -29,3 +43,7 @@ radar_chart <- function(dataset){
   legend(-2.5, -0.3, legend = as.character(zip[1:3,]), lty = 1, lwd = 4, col = c(2,3,4), cex = 0.6)
   
 }
+
+
+#Test the function
+radar_chart(dataset)
