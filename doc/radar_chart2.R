@@ -16,19 +16,18 @@ dataset <- data.frame(zipcode, var1, var2, var3, var4, var5, var6)
 #The function for radar chart
 radar_chart <- function(dataset){
   
-  dataset[is.na(dataset)] <- 0
   name <- names(dataset)
   n <- length(name)
   zip <- subset(dataset, select = name[1])
   VarToPlot <- name[order(dataset[1,2:n], decreasing = T)[1:5]+1]
   variables <- subset(dataset, select = VarToPlot)
   
-  maxmin <- data.frame(
-    v1 = c(max(variables[,1]), min(variables[,1])),
-    v2 = c(max(variables[,2]), min(variables[,2])),
-    v3 = c(max(variables[,3]), min(variables[,3])),
-    v4 = c(max(variables[,4]), min(variables[,4])),
-    v5 = c(max(variables[,5]), min(variables[,5])))
+   maxmin <- data.frame(
+    v1 = c(max(variables[,1], na.rm = T), min(variables[,1], na.rm = T)),
+    v2 = c(max(variables[,2], na.rm = T), min(variables[,2], na.rm = T)),
+    v3 = c(max(variables[,3], na.rm = T), min(variables[,3], na.rm = T)),
+    v4 = c(max(variables[,4], na.rm = T), min(variables[,4], na.rm = T)),
+    v5 = c(max(variables[,5], na.rm = T), min(variables[,5], na.rm = T)))
   
   top3 <- c(1,2,3)
   dat <- data.frame(
